@@ -5,11 +5,11 @@ from .shape import Shape
 class Circle(Shape):
     def __init__(self, opt):
         super(Circle, self).__init__(opt)
-        self.radius = round(1.273 * self.size)
+        self.radius = int(round(1.273 * self.size))
 
     def move(self):
         super(Circle, self).move()
-        self.radius = round(1.273 * self.size)
+        self.radius = int(round(1.273 * self.size))
 
     def draw(self, img):
         x, y = self.x, self.y
