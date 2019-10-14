@@ -7,15 +7,16 @@ from opt import opt
 
 class Canvas(object):
     def __init__(self, number=opt.number, opt=opt, background=None):
-        choices = np.array(opt.shapes)
+        choices = np.array(opt.shapes).reshape(-1)
         shapes = [Circle, Square]
-        assert max(choices) < len(shapes)
+        assert np.max(choices) < len(shapes)
         self.objects = [shapes[choice(choices)](opt) for i in range(number)]
         if background is None:
             self.background = np.zeros((opt.height, opt.width, 3), np.uint8) + 255
         else:
-            # read from file
-            pass
+            img = cv2.imread(background)
+            assert (img is not None)
+            self.background = cv2.resize(img, (opt.width, opt.height), interpolation=cv2.INTER_AREA)
 
     def draw(self, show_meta=False):
         img = self.background.copy()
